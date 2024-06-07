@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.center,
                   width: 400,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 15),
                     child: RiveAnimation.asset(
                       "assets/images/animated_login_character.riv",
                       stateMachines: const ["Login Machine"],
@@ -143,17 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          if (errorMessageEmail.isNotEmpty)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Text(
-                                errorMessageEmail,
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
                           SizedBox(
                             height: 10,
                           ),
@@ -236,6 +225,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Text(
                             errorMessageEmail.isNotEmpty
                                 ? errorMessageEmail
@@ -247,9 +239,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 12,
                             ),
                           ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           CupertinoButton(
-                            padding: EdgeInsets.only(
-                                left: double.infinity, right: double.infinity),
                             color: Colors.blue.shade300,
                             child: Text(
                               "Login",
