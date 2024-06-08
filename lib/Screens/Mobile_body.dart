@@ -114,10 +114,10 @@ class _MoBileBodyScreenState extends State<MoBileBodyScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     Text(
-                      "Login",
+                      "Welcome back",
                       style: GoogleFonts.kanit(
                           fontSize: 30,
                           color: Colors.white,
@@ -134,7 +134,10 @@ class _MoBileBodyScreenState extends State<MoBileBodyScreen> {
                       height: 10,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 10, left: 10),
+                      padding: EdgeInsets.only(
+                        left: 15,
+                        right: 15,
+                      ),
                       child: TextFormField(
                         onTap: isCheckingField,
                         onEditingComplete: () {
@@ -142,10 +145,19 @@ class _MoBileBodyScreenState extends State<MoBileBodyScreen> {
                           FocusManager.instance.primaryFocus?.unfocus();
                         },
                         controller: _username,
-                        style: const TextStyle(fontSize: 15),
+                        style: GoogleFonts.kanit(
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
                         cursorColor: Colors.red,
                         decoration: InputDecoration(
-                          hintText: "Username",
+                          prefixIcon: Icon(Icons.person),
+                          hintText: "Username ",
+                          labelText: "Username",
+                          labelStyle: GoogleFonts.kanit(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
@@ -174,82 +186,96 @@ class _MoBileBodyScreenState extends State<MoBileBodyScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    TextFormField(
-                      onTap: () {
-                        setState(() {
-                          if (_password.text.isEmpty) {
-                            isChecking?.change(true);
-                          } else {
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 15,
+                        right: 15,
+                      ),
+                      child: TextFormField(
+                        onTap: () {
+                          setState(() {
+                            if (_password.text.isEmpty) {
+                              isChecking?.change(true);
+                            } else {
+                              obscure = false;
+                              isHandsUp?.change(true);
+                            }
+                          });
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            passwordValid = isPasswordValid(value);
                             obscure = false;
                             isHandsUp?.change(true);
-                          }
-                        });
-                      },
-                      onChanged: (value) {
-                        setState(() {
-                          passwordValid = isPasswordValid(value);
-                          obscure = false;
-                          isHandsUp?.change(true);
-                          if (passwordValid) {
-                            errorMessagePassword = '';
-                          } else {
-                            errorMessagePassword =
-                                'Password must contain at least 8 characters, one uppercase letter, and one symbol.';
-                          }
-                        });
-                      },
-                      onEditingComplete: () {
-                        isHandsUp?.change(false);
-                        isChecking?.change(false);
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        setState(() {
-                          obscure = true;
+                            if (passwordValid) {
+                              errorMessagePassword = '';
+                            } else {
+                              errorMessagePassword =
+                                  'Password must contain at least 8 characters, one uppercase letter, and one symbol.';
+                            }
+                          });
+                        },
+                        onEditingComplete: () {
                           isHandsUp?.change(false);
-                        });
-                      },
-                      obscureText: obscure,
-                      controller: _password,
-                      style: const TextStyle(fontSize: 15),
-                      cursorColor: Colors.red,
-                      decoration: InputDecoration(
-                        hintText: "Password",
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide.none,
+                          isChecking?.change(false);
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          setState(() {
+                            obscure = true;
+                            isHandsUp?.change(false);
+                          });
+                        },
+                        obscureText: obscure,
+                        controller: _password,
+                        style: GoogleFonts.kanit(
+                          fontSize: 15,
+                          color: Colors.black,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: const BorderSide(color: Colors.red),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            obscure ? Icons.visibility_off : Icons.visibility,
-                            color: Colors.grey,
+                        cursorColor: Colors.red,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.password),
+                          labelText: "Password",
+                          hintText: "Password",                          labelStyle: GoogleFonts.kanit(
+                            fontSize: 15,
+                            color: Colors.black,
                           ),
-                          onPressed: () {
-                            setState(() {
-                              obscure = !obscure;
-                              if (obscure == false) {
-                                isHandsUp?.change(true);
-                              } else {
-                                isHandsUp?.change(false);
-                              }
-                            });
-                          },
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: const BorderSide(color: Colors.white),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              obscure ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                obscure = !obscure;
+                                if (obscure == false) {
+                                  isHandsUp?.change(true);
+                                } else {
+                                  isHandsUp?.change(false);
+                                }
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      validator: (value) {
-                        setState(() {
-                          passwordValid = isPasswordValid(value ?? '');
-                          if (passwordValid) {
-                            errorMessagePassword = '';
-                          }
-                        });
+                        validator: (value) {
+                          setState(() {
+                            passwordValid = isPasswordValid(value ?? '');
+                            if (passwordValid) {
+                              errorMessagePassword = '';
+                            }
+                          });
 
-                        return null;
-                      },
+                          return null;
+                        },
+                      ),
                     ),
                     SizedBox(
                       height: 6,
