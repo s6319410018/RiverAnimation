@@ -38,7 +38,8 @@ dependencies:
   get: ^4.6.6 # Routing System
   rive: ^0.13.5 # USe Rive animation
   animate_do: ^3.3.4 #uSE aNIMATION
-
+  google_fonts: ^6.2.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
